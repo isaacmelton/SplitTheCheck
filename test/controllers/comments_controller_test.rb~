@@ -1,0 +1,26 @@
+require 'test_helper'
+
+class CommentsControllerTest < ActionController::TestCase
+fixtures :restaurants
+include Devise::TestHelpers
+
+  setup do
+    sign_in User.first
+    @comment = comments(:one)
+  end
+
+  test "should get index" do
+    get :index
+    assert_response :success
+    assert_not_nil assigns(:comments)
+  end
+
+  test "should create comment" do
+    assert_difference('Comment.count') do
+      post :create, comment: { comment: @comment.comment, restaurant_id: @comment.restaurant_id, user_id: @comment.user_id }
+    end
+
+    assert_redirected_to restaurants_path
+  end
+
+end

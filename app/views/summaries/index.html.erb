@@ -1,0 +1,56 @@
+<h1><%= current_user.email %>'s Summary Page</h1>
+ <% if user_signed_in? %>
+<table id="summarytable">
+<% @user_votes = Vote.where("email = ?", User.find(current_user).email) %>
+<thead>
+    <tr>
+      <th id="biggerheader">Restaurant Name</th>
+      <th id="biggerheader">Do They Split?</th>
+    </tr>
+  </thead>
+<% @user_votes.each do |user_vote| %>
+<tr>
+<td id="summarysplit"><%= link_to Restaurant.find(user_vote.restaurantID).name, Restaurant.find(user_vote.restaurantID) %></td>
+
+<td id="summarysplit"><%= user_vote.split %></td>
+<% end %>
+</tr>
+
+<thead>
+    <tr>
+      <th id="biggerheader" colspan="3">Favorite Restaurants</th>
+
+    </tr>
+  </thead>
+
+<% @user_faves = Favorite.where('user_id = ?', current_user.id) %>
+    <% @user_faves.each do |favorite| %>
+      <tr>        
+	        <td id="summarysplit"><%= link_to Restaurant.find(favorite.restaurant_id).name, Restaurant.find(favorite.restaurant_id) %></td>
+
+
+      </tr>
+<% end %>
+
+<thead>
+    <tr>
+      <th id="biggerheader" colspan="3">Comments</th>
+    </tr>
+  </thead>
+
+<% @user_comments = Comment.where('user_id = ?', current_user.id) %>
+    <% @user_comments.each do |comment| %>
+      <tr>        
+	<td id="summarysplit"><%= link_to Restaurant.find(comment.restaurant_id).name, Restaurant.find(comment.restaurant_id) %></td>
+	<td><%= Comment.find(comment.id).comment %></td>
+      </tr>
+<% end %>
+</table>
+
+<% else %>
+
+<td id="split"><%= link_to "Login to view summary", new_user_session_path, :class => 'navbar-link'  %></td>
+<% end %>
+
+<br>
+

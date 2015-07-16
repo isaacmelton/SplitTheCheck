@@ -1,0 +1,71 @@
+<table>
+  <thead>
+    <tr id="titles">
+      <th>Name</th>
+      <th>Address</th>
+      <th>Do They Split?</th>
+      <th>Cast Your Vote</th>
+<% if user_signed_in? %>
+      <th>Favorite?</th>
+      <th>Add A Comment</th>
+<% end %>
+    </tr>
+
+  </thead>
+
+  <tbody>
+    <% @restaurants.each do |restaurant| %>
+
+      <tr>
+        <td id="restaurantname"><%= link_to restaurant.name, restaurant %></td>
+        <td id="address"><%= restaurant.address %><br>
+        <%= restaurant.city %>
+        <%= restaurant.state %> 
+        <%= restaurant.zip %></td>
+	<% if (Vote.yes_votes(restaurant.id) > Vote.no_votes(restaurant.id)) %>
+	<td id="resultyes"><%= Vote.yes_votes(restaurant.id) %> said yes!<br>
+	<%= Vote.no_votes(restaurant.id) %> said no!</td>
+        <% else if (Vote.yes_votes(restaurant.id) == Vote.no_votes(restaurant.id)) %>
+	<td id="resultsplit"><%= Vote.yes_votes(restaurant.id) %> said yes!<br>
+	<%= Vote.no_votes(restaurant.id) %> said no!</td>
+	<% else %>
+	<td id="resultno"><%= Vote.yes_votes(restaurant.id) %> said yes!<br>
+	<%= Vote.no_votes(restaurant.id) %> said no!</td>
+
+
+	<% end %>
+	<% end %>
+
+<% if user_signed_in? %>
+
+<td id="split"><%= button_to("Yes!", :action => "create", :controller => "votes", :vote => {:restaurantID => restaurant.id, :email => current_user.email, :split => 'true'}) %>
+
+<%= button_to("No!", :action => "create", :controller => "votes", :vote => {:restaurantID => restaurant.id, :email => current_user.email, :split => 'false'}) %></td>
+<td id="split">
+<%= button_to("Favorite!", :action => "create", :controller => "favorites", :favorite => {:vote => 'true', :user_id => current_user.id, :restaurant_id => restaurant.id}) %></td>
+</td>
+
+<% else %>
+
+<td id="split"><%= link_to "Login to vote", new_user_session_path, :class => 'navbar-link'  %></td>
+<% end %>
+
+<td id="split">    
+
+<% if user_signed_in? %>
+<%= form_for Comment.new do |f| %>
+
+  <%= f.hidden_field :restaurant_id, :value => restaurant.id %><br />
+  <%= f.text_field :comment, :placeholder=> "Enter Comment Here"%><br />
+
+  <%= f.submit %>
+<% end %>
+</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<div id="pagination"><%= paginate @restaurants %></div>  
+

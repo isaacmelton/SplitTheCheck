@@ -1,0 +1,71 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  restaurantID: 1
+  email: isaaclmelton@gmail.com
+  split: true
+
+two:
+  restaurantID: 1
+  email: isaaclmelton@gmail.com
+  split: true
+
+three:
+  restaurantID: 1
+  email: isaaclmelton@gmail.com
+  split: true
+
+four:
+  restaurantID: 1
+  email: isaaclmelton@gmail.com
+  split: true
+
+five:
+  restaurantID: 1
+  email: isaaclmelton@gmail.com
+  split: true
+
+six:
+  restaurantID: 1
+  email: isaaclmelton@gmail.com
+  split: true
+
+seven:
+  restaurantID: 1
+  email: isaaclmelton@gmail.com
+  split: true
+
+eight:
+  restaurantID: 2
+  email: MyString
+  split: false
+
+nine:
+  restaurantID: 2
+  email: MyString
+  split: false
+
+ten:
+  restaurantID: 2
+  email: MyString
+  split: false
+
+eleven:
+  restaurantID: 2
+  email: MyString
+  split: false
+
+twelve:
+  restaurantID: 2
+  email: MyString
+  split: false
+
+eight:
+  restaurantID: 2
+  email: MyString
+  split: false
+
+eight:
+  restaurantID: 2
+  email: MyString
+  split: false

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SplitTheCheck</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body">
+
+<div id="banner">
+
+<%= @page_title || "Split The Check" %>
+<br><br>
+<%= form_tag(restaurants_path, :method => "get") do %>
+
+      <%= text_field_tag :search, params[:search], placeholder: "Search by name or location" %>
+      <button type="submit">Search</button>
+
+  <% end %>
+
+<p id="login">
+<% if user_signed_in? %>
+  Logged in as <strong><%= current_user.email %></strong>.
+  <%= link_to 'Edit profile', edit_user_registration_path, :id => 'login' %> |
+  <%= link_to "Logout", destroy_user_session_path, method: :delete, :id => 'login'  %>
+<% else %>
+<%= link_to "Sign up", new_user_registration_path, :id => 'login'  %> |
+  <%= link_to "Login", new_user_session_path, :id => 'login'  %>
+<% end %>
+</p>
+</div>
+<div id="side">
+<ul>
+<li><%= link_to 'Add A Restaurant', new_restaurant_path %></li>
+<li><%= link_to 'User Page', summaries_path %>
+<li><%= link_to 'Home', restaurants_path %></li>
+</ul>
+</div>
+<div id="body"></div>
+
+<% if notice %>
+  <p class="alert alert-success"><%= notice %></p>
+<% end %>
+<% if alert %>
+  <p class="alert alert-danger"><%= alert %></p>
+<% end %>
+
+<%= yield %>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+require 'test_helper'
+
+class VoteTest < ActiveSupport::TestCase
+
+  setup do
+    @vote = votes(:one)
+    @vote2 = votes(:two)
+  end
+  
+ test "count number of yes votes" do
+    assert_equal 1, Vote.yes_votes(1)
+    end
+
+  test "count number of no votes" do
+    assert_equal 1, Vote.no_votes(2
+    end
+end
